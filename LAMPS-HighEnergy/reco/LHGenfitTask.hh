@@ -8,11 +8,11 @@
 #include "TClonesArray.h"
 
 #include "LHSpacepointMeasurement.hh"
-#include "genfit2/KalmanFitterRefTrack.h"
-#include "genfit2/Track.h"
-#include "genfit2/RKTrackRep.h"
-#include "genfit2/MeasurementFactory.h"
-#include "genfit2/MeasurementProducer.h"
+#include "KalmanFitterRefTrack.h"
+#include "Track.h"
+#include "RKTrackRep.h"
+#include "MeasurementFactory.h"
+#include "MeasurementProducer.h"
 
 class LHGenfitTask : public KBTask
 { 
