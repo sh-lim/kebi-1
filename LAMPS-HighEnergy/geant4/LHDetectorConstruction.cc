@@ -101,7 +101,7 @@ G4VPhysicalVolume *LHDetectorConstruction::Construct()
     logicTPC -> SetVisAttributes(attTPC);
   }
   logicTPC -> SetUserLimits(new G4UserLimits(1.*mm));
-  auto pvp = new G4PVPlacement(0, G4ThreeVector(0,0,tpcZOffset), logicTPC, "TPC", logicWorld, false, 0, true);
+  auto pvp = new G4PVPlacement(0, G4ThreeVector(0,0,tpcZOffset), logicTPC, "TPC", logicWorld, false, 1, true);
   runManager -> SetSensitiveDetector(pvp);
 
 

@@ -361,8 +361,8 @@ G4VPhysicalVolume *TB20ADetectorConstruction::Construct()
 		G4double Target1zOffset = par -> GetParDouble("Target1zOffset");
 
 		G4Box *solidTarget1 = new G4Box("Target1", Target1x/2.0, Target1y/2.0, Target1z/2.0);
-		//G4LogicalVolume *logicTarget1 = new G4LogicalVolume(solidTarget1, matCH2, "Traget1");
-		G4LogicalVolume *logicTarget1 = new G4LogicalVolume(solidTarget1, matSn, "Traget1");
+		G4LogicalVolume *logicTarget1 = new G4LogicalVolume(solidTarget1, matCH2, "Traget1");
+		//G4LogicalVolume *logicTarget1 = new G4LogicalVolume(solidTarget1, matSn, "Traget1");
 		{
 			G4VisAttributes * attTarget1 = new G4VisAttributes(G4Colour(G4Colour::Green()));
 			logicTarget1 -> SetVisAttributes(attTarget1);
@@ -408,11 +408,26 @@ G4VPhysicalVolume *TB20ADetectorConstruction::Construct()
 	if ( par -> GetParBool("BTOFIn") )
 	{
 
-		G4double BTOFx = par -> GetParDouble("BTOFx");
-		G4double BTOFy = par -> GetParDouble("BTOFy");
+		//G4double BTOFx = par -> GetParDouble("BTOFx");
+		//G4double BTOFy = par -> GetParDouble("BTOFy");
+		G4double BTOFrIn = par -> GetParDouble("BTOFrIn");
+		G4double BTOFrOut = par -> GetParDouble("BTOFrOut");
 		G4double BTOFz = par -> GetParDouble("BTOFz");
 		G4double BTOFzOffset = par -> GetParDouble("BTOFzOffset");
 
+		G4Tubs *solidBTOF = new G4Tubs("BTOF", BTOFrIn, BTOFrOut, 0.5*BTOFz, 0., 360*deg);
+		G4LogicalVolume *logicBTOF = new G4LogicalVolume(solidBTOF, matSC, "BTOF");
+		//logicBTOF -> SetVisAttributes (G4VisAttributes::GetInvisible());
+		{
+			G4VisAttributes * attBTOF = new G4VisAttributes(G4Colour(G4Colour::Red()));
+			attBTOF -> SetForceWireframe(true);
+			logicBTOF -> SetVisAttributes(attBTOF);
+		}
+
+		auto pvp = new G4PVPlacement(0, G4ThreeVector(0,0,BTOFzOffset+BTOFz/2), logicBTOF, "BTOF", logicWorld, false, 8, true);
+		runManager -> SetSensitiveDetector(pvp);
+
+		/*
 		G4Box *solidBTOF1 = new G4Box("BTOF1", BTOFx/2.0, BTOFy/2.0, BTOFz/2.0);
 		G4LogicalVolume *logicBTOF1 = new G4LogicalVolume(solidBTOF1, matSC, "BTOF1");
 		{
@@ -439,6 +454,7 @@ G4VPhysicalVolume *TB20ADetectorConstruction::Construct()
 		runManager -> SetSensitiveDetector(pvp2);
 		runManager -> SetSensitiveDetector(pvp3);
 		runManager -> SetSensitiveDetector(pvp4);
+		*/
 	}
 
 	//NeutronDetIn
